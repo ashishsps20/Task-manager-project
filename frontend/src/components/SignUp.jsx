@@ -4,10 +4,10 @@ import { BUTTONCLASSES, MESSAGE_ERROR, MESSAGE_SUCCESS } from '../assets/dummy'
 import { FIELDS, Inputwrapper } from '../assets/dummy'
 import axios from 'axios'
 
-const API_URL = "http://localhost:5173"
+const API_URL = "http://localhost:4000"
 const INITIAL_FORM = { name: "", email: "", password: ""}
 
-const SignUp = ( { onSwitchMode } ) => {
+const SignUp = ( { onSwitchMode , onSubmit } ) => {
 
   const [formData,setFormData] = useState(INITIAL_FORM);
   const [loading,setLoading] = useState(false);
@@ -23,6 +23,7 @@ const SignUp = ( { onSwitchMode } ) => {
       console.log("Signup Successfull",data)
       setMessage({ text: "Registration successful! You can now log in.", type: "success" });
       setFormData(INITIAL_FORM);
+      onSubmit(data);
     }
     catch(err){
       console.error("Signup Error", err);
