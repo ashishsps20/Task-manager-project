@@ -31,14 +31,14 @@ const App = () => {
     navigate('/',{ replace: true });
   }
 
-  const hadleLogout = () => {
+  const handleLogout = () => {
     localStorage.removeItem('token');
     setCurrentUser(null);
     navigate('/login', { replace: true });
   }
 
-  const PreotectedLayout = () => {
-    <Layout user={currentUser} onLogout={hadleLogout}>
+  const ProtectedLayout = () => {
+    <Layout user={currentUser} onLogout={handleLogout}>
       <Outlet />
     </Layout>
   };

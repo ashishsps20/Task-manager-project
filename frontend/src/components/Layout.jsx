@@ -3,7 +3,7 @@ import Navbar from './Navbar'
 import Sidebar from './Sidebar'
 import { Outlet } from 'react-router-dom';
 import axios from 'axios';
-import { TreadingUp, Zap, Circle, Clock } from 'lucide-react';
+import { TrendingUp, Zap, Circle, Clock } from 'lucide-react';
 
 const Layout = ({onLogout,user}) => {
 
@@ -23,7 +23,7 @@ const Layout = ({onLogout,user}) => {
       })
 
       const arr = Array.isArray(data) ? data :
-      Array.isArray(data?.taks) ? data.tasks :
+      Array.isArray(data?.tasks) ? data.tasks :
       Array.isArray(data?.data) ? data.data : [];
       setTasks(arr);
 
@@ -66,7 +66,7 @@ const Layout = ({onLogout,user}) => {
         <div className=' p-1.5 rounded-lg bg-gradient-to-br from-fuchsia-500/10 to-purple-500/10 group-hover:from-fuchsia-500/20 group-hover:to-purple-500/20'>
           {icon}
         </div>
-        <div className='min w-0'>
+        <div className='min-w-0'>
           <p className='text-lg sm:text-xl font-bold bg-gradient-to-r from-fuchsia-500 to-purple-600 bg-clip-text text-transparent'>
             {value}
           </p>
@@ -113,7 +113,7 @@ const Layout = ({onLogout,user}) => {
           <div className=' xl:col-span-1 space-y-4 sm:space-y-6'>
             <div className=' bg-white rounded-xl p-4 sm:p-5 shadow-sm border border-purple-100 '>
               <h3 className=' text-base sm:text-lg font-semibold mb-3 sm:mb-4 text-gray-800 flex items-center gap-2'>
-                <TreadingUp className=' w-4 h-4 sm:h-5 text-purple-500' />
+                <TrendingUp className=' w-4 h-4 sm:h-5 text-purple-500' />
                 Task Statistics
               </h3>
 
