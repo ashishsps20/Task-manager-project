@@ -16,10 +16,14 @@ export default async function authMiddleware(req, res, next) {
 
   try {
     const payload = jwt.verify(token, JWT_SECRET);
-    const user = await User.findById(payload.id).select('-password');
+     console.log("✅ Decoded token payload:", payload);
+     console.log("✅ Looking for user by ID:", payload.userId);
+    
+    const user = await User.findById(payload.userId).select('-password');
+    console.log("✅ User found in DB:", user);
 
     if(!user){
-      return res.status(401).json({ success: false, message: 'user not found' });
+      return res.status(401).json({ success: false, message: 'user not found in DB' });
     }
 
     req.user = user; // Attach user to request object
