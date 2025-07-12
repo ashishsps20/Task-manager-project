@@ -31,7 +31,7 @@ const Sidebar = ({user,tasks}) => {
 
           ].join(" ")} onClick={() => setMobileOpen(false)}>
             <span className={LINK_CLASSES.icon}>{icon}</span>
-            <span className={`ml-2 ${isMobile ? "block" : "hidden lg:block"} ${LINK_CLASSES}`}>
+            <span className={`ml-2 ${isMobile ? "block" : "hidden lg:block"} ${LINK_CLASSES.text}`}>
               {text}
             </span>
           </NavLink>
