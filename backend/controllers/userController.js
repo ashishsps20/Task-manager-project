@@ -88,17 +88,28 @@ export async function loginUser(req, res) {
 
 
 // GET USER FUNCTION
-export async function getUser(req, res) { 
-    try {
-        const user = await User.findById(req.user.id).select('-name email');
-        if(!user) {
-            return res.status(404).json({ success: false, message: "User not found" });
-        }
-        res.json({ success: true,user });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ success: false, message: "Internal server error" });
-    }
+// export async function getUser(req, res) { 
+//     try {
+//         const user = await User.findById(req.user.id).select('-name email');
+//         if(!user) {
+//             return res.status(404).json({ success: false, message: "User not found" });
+//         }
+//         res.json({ success: true,user });
+//     } catch (error) {
+//         console.error(error);
+//         res.status(500).json({ success: false, message: "Internal server error" });
+//     }
+// }
+export async function getUser(req, res) {
+  try {
+    // ── FIXED HERE: simply return the already‑loaded req.user (no extra DB find)
+    return res.json({ success: true, user: req.user });
+  } catch (error) {
+    console.error('Error in getUser:', error);
+    return res
+      .status(500)
+      .json({ success: false, message: 'Internal server error' });
+  }
 }
 
 // UPDATE USER FUNCTION
@@ -130,28 +141,31 @@ export async function updateUser(req, res) {
 export async function changePassword(req, res) {
   const { oldPassword, newPassword } = req.body;
 
-  if(!oldPassword || !newPassword || newPassword.length < 8) {
-    return res.status(400).json({ success: false, message: "Please fill all fields and ensure password is at least 8 characters" });
+  if (!oldPassword || !newPassword || newPassword.length < 8) {
+    return res.status(400).json({
+      success: false,
+      message: "Please fill all fields and ensure password is at least 8 characters"
+    });
   }
 
   try {
     const user = await User.findById(req.user.id).select('password');
-    if(!user) {
+    if (!user) {
       return res.status(404).json({ success: false, message: "User not found" });
     }
 
     const isMatch = await bcrypt.compare(oldPassword, user.password);
-    if(!isMatch) {
+    if (!isMatch) {
       return res.status(401).json({ success: false, message: "Invalid credentials" });
     }
 
-    const hashed = await bcrypt.hash(newPassword, 10);
-    await User.save();
+    user.password = await bcrypt.hash(newPassword, 10);  // assign the new hash
+    await user.save();                                    // persist it
 
     res.json({ success: true, message: "Password changed successfully" });
-  }
-  catch (error) {
+  } catch (error) {
     console.error(error);
     res.status(500).json({ success: false, message: "Internal server error" });
   }
 }
+

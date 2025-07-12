@@ -1,8 +1,9 @@
 import React, { use, useEffect, useState } from 'react'
-import { Outlet, Route, Routes, useNavigate } from 'react-router-dom'
+import { Navigate, Outlet, Route, Routes, useNavigate } from 'react-router-dom'
 import Login from './components/Login';
 import Layout from './components/Layout';
 import SignUp from './components/SignUp';
+import Dashboard from './pages/Dashboard';
 
 const App = () => {
 
@@ -37,11 +38,11 @@ const App = () => {
     navigate('/login', { replace: true });
   }
 
-  const ProtectedLayout = () => {
+  const ProtectedLayout = () => (
     <Layout user={currentUser} onLogout={handleLogout}>
       <Outlet />
     </Layout>
-  };
+  );
 
 
   return (
@@ -54,8 +55,10 @@ const App = () => {
          <SignUp onSubmit={handleAuthSubmit} onSwitchMode={() => navigate('/login')}/>
         </div> } />
 
-
-      <Route path='/' element={<Layout/>} />
+      <Route element={currentUser ? <ProtectedLayout/> : <Navigate to='/login' replace />}>
+        <Route path='/' element={<Dashboard/>} />
+      </Route>
+      
     </Routes>
   )
 }
