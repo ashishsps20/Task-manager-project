@@ -103,7 +103,7 @@ const Login = ({ onSubmit, onSwitchMode }) => {
               placeholder={placeholder}
               value={formData[name]}
               onChange={(e) => setFormData({ ...formData, [name]: e.target.value })}
-              className='w-full focus:outline-none text-sm text-gray-700'
+              className='w-full ml-2 focus:outline-none text-sm text-gray-700'
               required
             />
             {isPassword && (
