@@ -75,7 +75,7 @@ const Sidebar = ({user,tasks}) => {
 
         {renderMenuItems()}
 
-        <div className=' mt-auto pt-6 lg:block hidden'>
+        {/* <div className=' mt-auto pt-6 lg:block hidden'>
           <div className={TIP_CARD.container}>
             <div className=' flex items-center gap-2'>
               <div className={TIP_CARD.iconWrapper}>
@@ -92,7 +92,7 @@ const Sidebar = ({user,tasks}) => {
 
             </div>
           </div>
-        </div>
+        </div> */}
 
       </div>  
     </div>
