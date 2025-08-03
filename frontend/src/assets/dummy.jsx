@@ -59,7 +59,7 @@ export const priorityStyles = {
 export const DEFAULT_TASK = {
     title: "",
     description: "",
-    priority: "Low",
+    priority: "low",
     dueDate: "",
     completed: "No",
     id: null,

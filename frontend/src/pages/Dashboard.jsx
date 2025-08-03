@@ -20,7 +20,7 @@ import {
   TAB_INACTIVE,
 } from "../assets/dummy";
 import { CalendarIcon, Plus, HomeIcon, Filter } from "lucide-react";
-import { useOutletContext } from "react-router-dom";
+import {useOutletContext} from "react-router-dom";
 import TaskItem from "../components/Taskitem";
 import TaskModal from "../components/TaskModal";
 import axios from "axios";
@@ -28,7 +28,7 @@ import axios from "axios";
 const API_BASE = "http://localhost:4000/api/tasks";
 
 const Dashboard = () => {
-  const { tasks, refreshTasks } = useOutletContext();
+  const {tasks, refreshTasks} = useOutletContext();
   const [showModal, setShowModal] = useState(false);
   const [selectedTask, setSelectTask] = useState(null);
   const [filter, setFilter] = useState("all");
@@ -44,8 +44,7 @@ const Dashboard = () => {
       highPriority: tasks.filter((t) => t.priority?.toLowerCase() === "high")
         .length,
       completed: tasks.filter(
-        (t) =>
-          t.completed === true ||
+        (t) => t.completed === true ||
           t.completed === 1 ||
           (typeof t.completed === "string" &&
             t.completed.toLowerCase() === "yes")
@@ -62,18 +61,19 @@ const Dashboard = () => {
         const today = new Date();
         const nextWeek = new Date(today);
         nextWeek.setDate(today.getDate() + 7);
-        switch (filter) {
-          case "today":
+    switch (filter) {
+      case "today":
             return dueDate.toDateString() === today.toDateString();
-          case "week":
+      case "week":
             return dueDate >= today && dueDate <= nextWeek;
-          case "high":
-          case "medium":
-          case "low":
-            return task.priority?.toLowerCase() === filter;
-          default:
-            return true;
-        }
+      case "high":
+      case "medium":
+      case "low":
+        return task.priority?.toLowerCase() === filter;
+      default:
+        // “all”
+        return true;
+    }
       }),
     [tasks, filter]
   );
@@ -87,7 +87,8 @@ const Dashboard = () => {
         refreshTasks();
         setShowModal(false);
         setSelectTask(null);
-      } catch (error) {
+      } 
+      catch (error) {
         console.error("Error saving tasks:", error);
       }
     },
@@ -216,14 +217,14 @@ const Dashboard = () => {
                 showCompleteCheckbox
                 onEdit={() => {
                   setSelectTask(task);
-                  setShowModal(true);
+                  setShowModal(true)
                 }}
               />
             ))
           )}
         </div>
 
-        {/* ADD TEASK DESKTOP */}
+        {/* ADD TASK DESKTOP */}
         <div
           onClick={() => setShowModal(true)}
           className='hidden md:flex items-center justify-center p-4 border-2 border-dashed border-purple-200 rounded-xl hover:border-purple-400 bg-purple-50/50 cursor-pointer transition-colors'

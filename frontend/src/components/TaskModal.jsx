@@ -14,15 +14,14 @@ const TaskModal = ({ isOpen, onClose, taskToEdit, onSave, onLogout }) => {
   useEffect(() => {
     if (!isOpen) return;
     if (taskToEdit) {
-      const normalized =
-        taskToEdit.completed === "Yes" || taskToEdit.completed === true
+      const normalized = taskToEdit.completed === "Yes" || taskToEdit.completed === true
           ? "Yes"
           : "No";
       setTaskData({
         ...DEFAULT_TASK,
         title: taskToEdit.title || "",
         description: taskToEdit.description || "",
-        priority: taskToEdit.priority || "Low",
+        priority: (taskToEdit.priority || "low").toLowerCase(),
         dueDate: taskToEdit.dueDate?.split("T")[0] || "",
         completed: normalized,
         id: taskToEdit._id,
@@ -120,8 +119,7 @@ shadow-lg relative p-6 animate-fadeIn"
               Task Title
             </label>
             <div
-              className=" flex items-center border border-purple-100 rounded-1g px-3 py-2.5 focus-within: ring-2 focus-within: ring-purple-500 focus-within: border-purple-500
-transition-all duration-200"
+              className="flex items-center border border-purple-100 rounded-lg px-3 py-2.5 focus-within:ring-2 focus-within:ring-purple-500 focus-within:border-purple-500 transition-all duration-200"
             >
               <input
                 type="text"
@@ -161,9 +159,9 @@ transition-all duration-200"
                   priorityStyles[taskData.priority]
                 }`}
               >
-                <option>Low</option>
-                <option>Medium</option>
-                <option>High</option>
+                <option value="low">Low</option>
+                <option value="medium">Medium</option>
+                <option value="high">High</option>
               </select>
             </div>
            
