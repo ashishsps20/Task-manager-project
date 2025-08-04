@@ -9,7 +9,7 @@ export const createTask = async (req, res) => {
       description,
       priority,
       dueDate,
-      completed: completed ==='yes' || completed === true,
+      completed: completed === 'Yes' || completed === true,
       owner : req.user.id
     });
 
@@ -57,7 +57,7 @@ export const updateTask = async (req, res) => {
   try {
     const data = {...req.body};
     if(data.completed !== undefined) {
-      data.completed = data.completed === 'yes' || data.completed === true;
+      data.completed = data.completed === 'Yes' || data.completed === true;
     }
 
     const updated = await Task.findOneAndUpdate(
